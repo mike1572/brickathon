@@ -13,12 +13,13 @@ export default function Question ({label, value, options, handleChange}) {
 
     return (
         <Grid item xs={10} sm={10} md={10} lg={12}>
-            <FormControl fullWidth required>
+            <FormControl fullWidth required >
                 <InputLabel>{label}</InputLabel>
                 <Select                                    
                     value={value}
                     label={label}
                     onChange={handleChange}
+          
                 >
                 {
                     options.map((option, i) => (

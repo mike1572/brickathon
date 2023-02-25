@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
     Paper,
@@ -12,8 +12,10 @@ import {
     MenuItem,
     Select,
     Button,
-    IconButton
+    IconButton,
+    CircularProgress
 } from "@mui/material";
+
 
 import ImageIcon from '@mui/icons-material/Image';
 import DownloadIcon from '@mui/icons-material/Download';
@@ -37,17 +39,70 @@ export default function Home () {
     const [glasses, setGlasses] = useState('')
     const [earrings, setEarrings] = useState('')
     const [tattoos, setTatoos] = useState('')
-    const [backLighting, setBackLighting] = useState('')
+    //const [backLighting, setBackLighting] = useState('')
     const [timeOfDay, setTimeOfDay] = useState('')
     const [locations, setLocations] = useState('')
     const [productType, setProductType] = useState('')
+
+    const [loading, setLoading] = useState(false)
+
+    const [imagePresent, setImagePresent] = useState(false) 
+
+    useEffect(() => {
+        console.log(process.env.REACT_APP_STABLE_DIFFUSION_KEY)
+    }, [])
 
 
     let handleSubmit = (e) => {
         e.preventDefault()
         console.log(
-            gender, ethnicity, hairColor, age, facialHair, glasses, earrings, tattoos, backLighting, timeOfDay, locations, productType
+            `Image of a ${ethnicity} ${gender} drinking ${productType}, ${age} with ${glasses} glasses, ${hairColor} hair, ${facialHair}, ${earrings} earrings with ${tattoos} tattoos, in the ${timeOfDay} on a ${locations}`
         )
+
+        const engineId = 'stable-diffusion-512-v2-0';
+
+        setLoading(true)
+        fetch(
+            `https://api.stability.ai/v1beta/generation/${engineId}/text-to-image`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                    Authorization: `Bearer ${process.env.REACT_APP_STABLE_DIFFUSION_KEY}`,
+                },
+                body: JSON.stringify({
+                    text_prompts: [
+                        {
+                            text: `Image of a ${ethnicity} ${gender} drinking ${productType}, ${age} with ${glasses} glasses, ${hairColor} hair, ${facialHair}, ${earrings} earrings with ${tattoos} tattoos, in the ${timeOfDay} on a ${locations}`
+                        }
+                    ],
+                    cfg_scale: 7,
+                    clip_guidance_preset: 'FAST_BLUE',
+                    height: 512,
+                    width: 512,
+                    samples: 1,
+                    steps: 50,
+                })
+            }
+        )
+        .then((res) => {
+            console.log(res)
+            return res.json()
+        })
+        .then((data) => {
+         
+
+            setImagePresent(true)
+   
+            data.artifacts.forEach((image, index) => {
+                let imageT = document.getElementById('imageGenerated')
+                imageT.src =  `data:image/png;base64,${image.base64}`
+            })
+
+            setLoading(false)
+
+        })
     }
 
     return (
@@ -77,6 +132,7 @@ export default function Home () {
                             <Question label='Hair Color' value={hairColor} options={['Black', 'Brown', 'Blonde', 'Red']} handleChange={(e) => setHairColor(e.target.value)}/>
                             <Question label="Age" value={age} options={['18 year old', '25 year old', '30-40 year old', '50 year old', '80 year old']} handleChange={(e) => setAge(e.target.value)}/>
                             <Question label="Facial Hair" value={facialHair} options={['Beard', 'Mustache', 'Goatee', 'No facial hair']} handleChange={(e) => setFacialHair(e.target.value)}/>
+                            <Question label="Tattoos" value={tattoos} options={['Fullbody', 'Neck', 'Arm', 'Wrist', 'No']} handleChange={(e) => setTatoos(e.target.value)}/>
 
                         </Grid>
 
@@ -91,7 +147,6 @@ export default function Home () {
 
                                 <Question label="Glasses" value={glasses} options={['Rounded', 'Square', 'Sunglasses', 'No']} handleChange={(e) => setGlasses(e.target.value)}/>
                                 <Question label="Earrings" value={earrings} options={['Studs', 'Chandelier', 'Ear cuffs', 'No']} handleChange={(e) => setEarrings(e.target.value)}/>
-                                <Question label="Tattoos" value={tattoos} options={['Fullbody', 'Neck', 'Arm', 'Wrist']} handleChange={(e) => setTatoos(e.target.value)}/>
 
                             </Grid>
                           
@@ -103,7 +158,6 @@ export default function Home () {
                                     </Typography>
                                 </Grid>
 
-                                <Question label="Lighting" value={backLighting} options={['Night', 'Day']} handleChange={(e) => setBackLighting(e.target.value)}/>
                                 <Question label="Locations" value={locations} options={['Beach', 'Forest', 'Office', 'Pub']} handleChange={(e) => setLocations(e.target.value)}/>
                                 <Question label="Time of Day" value={timeOfDay} options={['Morning', 'Afternoon', 'Evening', 'Sunset', 'Night']} handleChange={(e) => setTimeOfDay(e.target.value)}/>
 
@@ -111,9 +165,6 @@ export default function Home () {
 
                         </Grid>
 
-                        
-                        
-                      
         
                         <Grid container item spacing={1} lg={12} justifyContent="center" alignItems="center">
                          
@@ -128,7 +179,17 @@ export default function Home () {
 
                         <Grid container item display='flex' justifyContent='center' flexDirection='column' alignItems="center" sx={{mt: 3}}>
                             <Grid item xs={12}>
-                                <Button variant="contained" type="submit" sx={{textAlign: 'center'}}>Generate</Button>
+                                <Button disabled={loading} variant="contained" type="submit" sx={{textAlign: 'center', width: 100}}>
+                                    
+                                    {
+                                        loading ? (
+                                            <CircularProgress sx={{color: 'white'}} size={25} />
+                                        ) : (
+                                            'Generate'
+                                        )
+                                    }
+                                    
+                                </Button>
                             </Grid>
                         </Grid>
 
@@ -141,14 +202,17 @@ export default function Home () {
                     <Typography variant="body1" sx={{my: {xs: 3}}} >
                         Your image will appear here
                     </Typography>
+                    
+                    <img id="imageGenerated" src='#' style={{height: imageHeight, width: imageHeight, borderRadius: 10, display: imagePresent ? 'block': 'none'}} />
+                    {
+                        !imagePresent && (
+                            <ImageIcon sx={{
+                                height: imageHeight, width: imageHeight,
+                            }} />
+                        )
+                    }
 
-                    <img src={people} style={{height: imageHeight, width: imageHeight, borderRadius: 10}} />
-                    {/* <ImageIcon sx={{
-                 
-                        height: imageHeight, width: imageHeight,
-                    }} /> */}
-
-                    <IconButton sx={{mt: 3}}>
+                    <IconButton disabled={!imagePresent} sx={{mt: 3}}>
                         <DownloadIcon sx={{height: 55, width: 55}}/>
                     </IconButton>
                     

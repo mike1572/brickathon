@@ -10,6 +10,8 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import Home from './Home';
 
+import logo from './images/logo.png'
+
 let lightTheme = createTheme({
   palette: {
     mode: 'light',
@@ -30,7 +32,6 @@ let darkTheme = createTheme({
       default: "#808080"
     }
   },
-
 })
 
 
@@ -43,9 +44,11 @@ function App() {
       <CssBaseline/>
       <AppBar position='static'>
         <Toolbar>
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>
+          <img src={logo} style={{width: 120}}/>
+          {/* <Typography variant="h6" sx={{ flexGrow: 1 }}>
             SKETCHIFY
-          </Typography>
+          </Typography> */}
+          <Toolbar sx={{width: '90%'}}/>
           <IconButton
             size="large"
             edge="end"
