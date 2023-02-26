@@ -24,9 +24,15 @@ import MessageIcon from '@mui/icons-material/Message';
 import Question from "./Question";
 import Question2 from "./Question2";
 
+import {toPng} from 'html-to-image'
+import download from 'downloadjs'
+
 export default function Home () {
 
     let imageHeight=450
+
+    const [text, setText] = useState('')
+
 
     const [gender, setGender] = useState('')
     const [ethnicity, setEthnicity] = useState('')
@@ -50,6 +56,19 @@ export default function Home () {
     const [imagePresent, setImagePresent] = useState(false) 
 
     const [openDialog, setOpenDialog] = useState(false)
+
+    let downloadImage = () => {
+        let image = document.getElementById('image-wrapper')
+
+        toPng(image)
+        .then(dataURL => {
+            download(dataURL, 'image.png')
+        })
+        .catch((err) => {
+            console.log("An error occurred")
+        })
+        
+    }
 
     let saveImage = () => {
         let imageT = document.getElementById('imageGenerated')
@@ -273,7 +292,11 @@ export default function Home () {
                         Your image will appear here
                     </Typography>
                     
-                    <img id="imageGenerated" src='#' style={{height: imageHeight, width: imageHeight, borderRadius: 10, display: imagePresent ? 'block': 'none'}} />
+                    <Box id="image-wrapper" sx={{display: 'flex', position: 'relative'}}>
+                        <img id="imageGenerated" src='#' style={{height: imageHeight, width: imageHeight, borderRadius: 10, display: imagePresent ? 'block': 'none'}} />
+                        <Typography variant="h3" sx={{position: 'absolute', textAlign: 'center', bottom: 25, right: 0, left: 0, color: 'white', fontWeight: 700}}>{text}</Typography>
+                    </Box>
+                    
                     {
                         !imagePresent && (
                             <ImageIcon sx={{
@@ -282,11 +305,22 @@ export default function Home () {
                         )
                     }
 
+                    {
+                        imagePresent && (
+                            <TextField
+                                sx={{mt: 3}}
+                                value={text}
+                                placeholder="Enter Ad Caption Here"
+                                onChange={(e) => setText(e.target.value)}
+                            />
+                        )
+                    }
+
                     <Box display='flex' flexDirection="row">
-                        <IconButton disabled={!imagePresent} sx={{mt: 3}} onClick={saveImage}>
+                        <IconButton disabled={!imagePresent} sx={{mt: 1}} onClick={downloadImage}>
                             <DownloadIcon sx={{height: 55, width: 55}}/>
                         </IconButton>
-                        <IconButton disabled={!imagePresent} sx={{mt: 3}} onClick={() => setOpenDialog(true)}>
+                        <IconButton disabled={!imagePresent} sx={{mt: 1}} onClick={() => setOpenDialog(true)}>
                             <MessageIcon sx={{height: 55, width: 55}}/>
                         </IconButton>
                     </Box>
