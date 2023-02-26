@@ -1,5 +1,7 @@
 ![banner for Sketchify](https://github.com/mike1572/brickathon/blob/main/public/banner.png?raw=true)
 
+## Project for Brickhacks 9 2023
+
 ## Inspiration
 🧑‍🎨 take time to create 🎨 
 
@@ -30,4 +32,4 @@ Buttons for editing and adding text to the photo with a logo was done to create 
 ## What we learned
 - Model Stable Diffusion - open source. Found limitations with Dalle with faces - would not render. Important part to showcase face for more personalized experience
 
-[Devpost](https://devpost.com/software/sketchify)
+[Link to Devpost](https://devpost.com/software/sketchify)
