@@ -263,7 +263,7 @@ export default function Home () {
                                 </Typography>
                             </Grid>
 
-                            <Question label="Types" value={productType} options={['Wine', 'Beer', 'Spirits']} handleChange={(e) => setProductType(e.target.value)}/>
+                            <Question label="Types" value={productType} options={['Wine', 'Beer', 'Cocktail']} handleChange={(e) => setProductType(e.target.value)}/>
                         </Grid>
 
                         <Grid container display='flex' justifyContent='center' flexDirection='column' alignItems="center" sx={{mt: 3}}>
