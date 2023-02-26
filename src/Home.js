@@ -12,7 +12,10 @@ import {
     Dialog,
     DialogTitle,
     DialogContent,
-    TextField
+    TextField,
+    Switch,
+    FormGroup, 
+    FormControlLabel
 } from "@mui/material";
 
 import { saveAs } from 'file-saver';
@@ -32,6 +35,7 @@ export default function Home () {
     let imageHeight=450
 
     const [text, setText] = useState('')
+    const [whiteFont, setWhiteFont] = useState(true)
 
 
     const [gender, setGender] = useState('')
@@ -294,7 +298,7 @@ export default function Home () {
                     
                     <Box id="image-wrapper" sx={{display: 'flex', position: 'relative'}}>
                         <img id="imageGenerated" src='#' style={{height: imageHeight, width: imageHeight, borderRadius: 10, display: imagePresent ? 'block': 'none'}} />
-                        <Typography variant="h3" sx={{position: 'absolute', textAlign: 'center', bottom: 25, right: 0, left: 0, color: 'white', fontWeight: 700}}>{text}</Typography>
+                        <Typography variant="h3" sx={{color: whiteFont ? 'white': 'black', position: 'absolute', textAlign: 'center', bottom: 25, right: 0, left: 0, fontWeight: 700}}>{text}</Typography>
                     </Box>
                     
                     {
@@ -307,12 +311,17 @@ export default function Home () {
 
                     {
                         imagePresent && (
-                            <TextField
-                                sx={{mt: 3}}
-                                value={text}
-                                placeholder="Enter Ad Caption Here"
-                                onChange={(e) => setText(e.target.value)}
-                            />
+                            <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                                <TextField
+                                    sx={{mt: 3}}
+                                    value={text}
+                                    placeholder="Enter Ad Caption Here"
+                                    onChange={(e) => setText(e.target.value)}
+                                />
+                                <FormGroup sx={{mt: 3, ml: 2}}>
+                                    <FormControlLabel control={<Switch checked={whiteFont} onChange={() => {setWhiteFont(!whiteFont); console.log(whiteFont)}} />} label={whiteFont ? 'White Font' : 'Black Font'} />
+                                </FormGroup>
+                            </Box>
                         )
                     }
 
