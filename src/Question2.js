@@ -1,14 +1,13 @@
-
 import {
     Grid, 
     FormControl, 
     InputLabel, 
     Select, 
-    MenuItem,
+    MenuItem
 } from '@mui/material'
 
 
-export default function Question ({label, value, options, handleChange}) {
+export default function Question2 ({label, value, options, handleChange}) {
 
     return (
         <Grid item xs={10} sm={10} md={10} lg={10}>

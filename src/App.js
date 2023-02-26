@@ -45,9 +45,6 @@ function App() {
       <AppBar position='static'>
         <Toolbar>
           <img src={logo} style={{width: 120}}/>
-          {/* <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            SKETCHIFY
-          </Typography> */}
           <Toolbar sx={{width: '90%'}}/>
           <IconButton
             size="large"
