@@ -1,16 +1,11 @@
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import {
     Paper,
     Grid,
     Typography,
-    Input,
-    InputLabel,
     Box,
-    FormControl,
-    MenuItem,
-    Select,
     Button,
     IconButton,
     CircularProgress,
@@ -25,7 +20,7 @@ import { saveAs } from 'file-saver';
 import ImageIcon from '@mui/icons-material/Image';
 import DownloadIcon from '@mui/icons-material/Download';
 import MessageIcon from '@mui/icons-material/Message';
-import people from './images/people.png'
+//import people from './images/people.png'
 import Question from "./Question";
 import Question2 from "./Question2";
 
@@ -163,7 +158,7 @@ export default function Home () {
                         <TextField 
                             value={phone}
                             type='tel' 
-                            sx={{my: 2, input: { color: 'white' }, borderColor: 'white'}}
+                            sx={{my: 2}}
                             required
                             onChange={(e) => setPhone(e.target.value)}
         
