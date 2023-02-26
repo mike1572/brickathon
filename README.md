@@ -1,70 +1,33 @@
-# Getting Started with Create React App
+![banner for Sketchify](https://github.com/mike1572/brickathon/blob/main/public/banner.png?raw=true)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Inspiration
+🧑‍🎨 take time to create 🎨 
 
-## Available Scripts
+What happens when they can use Ai tools to create assets in seconds that they can manipulate for their brand?
 
-In the project directory, you can run:
+Sketchify is a project that draws inspiration from the power of visual communication. In today's fast-paced world, where media and trends change drastically in a matter of weeks, it is essential to convey messages quickly and effectively. Sketchify aims to do just that by creating media posters based on a prompt. 
 
-### `npm start`
+## What it does
+Sketchify takes a concept or a message and turn it into a visual representation that grabs people's attention and stays in their minds. The Sketchify team believes that a single image can convey more than a thousand words, and they strive to make each poster a unique and compelling representation of the prompt. Through Sketchify, they hope to promote the art of visual storytelling and inspire people to think outside the box when it comes to communication.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+It is easy to be the photo studio for graphic designers and they can create high quality graphics for social media, that are unique and personalizable. The turn around time is fast which makes it optimal for social media campaigns. For large print media, photoshoots still play a role.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+In our case, we designed it for the Constellation Brands company to showcase different alcoholic beverages in their line up.
 
-### `npm test`
+## How we built it
+The project was developed using React with TypeScript. Material UI was utilized for CSS to design the dropdown menu form. TypeScript's ability to be dynamic and concatenate helped in preparing a prompt for Stable Diffusion API to generate high-quality images. 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Buttons for editing and adding text to the photo with a logo was done to create a social media post-friendly platform. Furthermore, Twilio was used to send the final product to the designer's phone allowing for easily sending the post via phone social media apps. The final project was deployed on Vercel with a .tech domain to ensure HTTPS compliance and deliver a top-notch product.
 
-### `npm run build`
+## Challenges we ran into
+- Dalle API did not show faces which was a surprise, and when it did, they were blurred or extremely low quality
+- Play around with the prompts (garbage in, garbage out). Took a lot of attempts to refine our search
+- We kept having different issues with connecting Twilio API with MMS. It required us to be good programmers, referencing the Twilio API documentation, which provides detailed information on how to use the API, handle errors, and work within the API limits. 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Accomplishments that we're proud of
+- First time implementing a darkmode to improve user experience
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## What we learned
+- Model Stable Diffusion - open source. Found limitations with Dalle with faces - would not render. Important part to showcase face for more personalized experience
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[Devpost](https://devpost.com/software/sketchify)
